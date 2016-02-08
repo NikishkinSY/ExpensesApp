@@ -35,5 +35,6 @@
   "publishExclude": [
     "**.user",
     "**.vspscc"
-  ]
+  ],
+  "userSecretsId": "aspnet5-ExpensesApp-20160208094834"
 }
