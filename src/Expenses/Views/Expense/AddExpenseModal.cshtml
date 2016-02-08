@@ -1,0 +1,40 @@
+﻿<div id="addExpenseModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="×" />
+                <h4 class="modal-title">Add expense</h4>
+            </div>
+            <form ng-submit="expense.addExpense()" name="formAddExpense">
+                <div class="modal-body">
+                    <div class="expenses-filter-month row">
+                        <div class="col-xs-2">Money</div>
+                        <div class="col-xs-4">
+                            <input class="form-control" name="money" type="number" step="0.01" ng-model="expense.newExpense.money" required />
+                            <div ng-messages="formAddExpense.money.$error">
+                                <div class="expenses-modal-error" ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expenses-filter-category row" ng-init="expense.getCategories()">
+                        <div class="col-xs-2">Category</div>
+                        <div class="col-xs-4">
+                            <select class="form-control" name="category" ng-model="expense.newExpense.category" 
+                                    ng-options="category for category in expense.categories" required>
+                                <option value="">choose category</option>
+                            </select>
+                            <div ng-messages="formAddExpense.category.$error">
+                                <div class="expenses-modal-error" ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" value="Close" data-dismiss="modal"/>
+                    <input type="submit" class="btn btn-primary" value="Save" >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

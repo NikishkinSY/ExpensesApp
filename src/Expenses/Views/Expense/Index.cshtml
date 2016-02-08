@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<environment names="Development">
+    <link href="~/css/controllers/expense.css" rel="stylesheet" />
+</environment>
+<environment names="Staging,Production">
+    <link href="~/css/controllers/expense.css" rel="stylesheet" asp-append-version="true"/>
+</environment>
+
+
+<div class="expenses" ng-controller="ExpenseController as expense" ng-init="expense.getExpenses()">
+    <input class="btn btn-primary expenses-add" type="button" data-toggle="modal" data-target="#addExpenseModal" value="Add expense"/>
+    <div class="expenses-filters">
+        <div class="expenses-filter-month row">
+            <div class="col-xs-4">Month filter</div>
+            <div class="col-xs-8">
+                <select class="form-control" ng-model="expense.searchParamMonth">
+                    <option value=""></option>
+                    <option ng-repeat="month in expense.months" value="{{ month }}">{{ month | date:'yyyy.MM' }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="expenses-filter-category row">
+            <div class="col-xs-4">Category filter</div>
+            <div class="col-xs-8">
+                <select class="form-control" ng-init="expense.getCategories()" ng-model="expense.searchParamExpense.category">
+                    <option value=""></option>
+                    <option ng-repeat="category in expense.categories" value="{{ category }}">{{ category }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="expenses-list">
+        <div class="expenses-list-header row">
+            <b class="col-xs-3">Money</b>
+            <b class="col-xs-3">Category</b>
+            <b class="col-xs-6">DateTime create</b>
+        </div>
+
+        <div class="expenses-list-body">
+            <div class="expenses-list-row row" ng-repeat="expense in expense.expenses | filter:expense.searchParamExpense | month:expense.searchParamMonth">
+                <div class="expenses-list-cell col-xs-3">{{ expense.money }}</div>
+                <div class="expenses-list-cell col-xs-3">{{ expense.category }}</div>
+                <div class="expenses-list-cell col-xs-6">{{ expense.create | date:'yyyy.MM.dd HH:mm'}}</div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("addExpenseModal")
+</div>
